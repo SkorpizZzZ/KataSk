@@ -13,7 +13,7 @@ public class Util {
     private Util() {
     }
 
-    public static Connection getConnection() {
+    public Connection getConnection() {
         Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
