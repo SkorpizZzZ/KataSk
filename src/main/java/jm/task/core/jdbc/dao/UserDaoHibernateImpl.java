@@ -88,7 +88,9 @@ public class UserDaoHibernateImpl implements UserDao {
         try {
             session = Util.getInstance().getSessionFactory().openSession();
             transaction = session.beginTransaction();
+            String hql = "DELETE FROM User WHERE id = :Id";
             session.delete(session.get(User.class, id));
+            session.createQuery(hql).setParameter("Id",id).executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -105,12 +107,12 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         Transaction transaction = null;
-        List <User> users = null;
+        List<User> users = null;
         Session session = null;
         try {
             session = Util.getInstance().getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Query <User> query = session.createQuery("FROM User");
+            Query<User> query = session.createQuery("FROM User");
             users = query.list();
             transaction.commit();
         } catch (Exception e) {
